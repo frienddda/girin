@@ -1,0 +1,94 @@
+  <!-- Sidebar  -->
+<!--레이어팝업_공지사항 -->
+<style>
+
+.pop-layer .pop-container {
+  padding: 20px 25px;
+}
+
+.pop-layer p.ctxt {
+  color: #666;
+  line-height: 25px;
+}
+
+.pop-layer .btn-r {
+  width: 100%;
+  margin: 10px 0 20px;
+  padding-top: 10px;
+  border-top: 1px solid #DDD;
+  text-align: right;
+}
+
+.pop-layer {
+  display: none;
+  position: absolute;
+  top: 40%;
+  left: 400px;
+  width: 410px;
+  height: auto;
+  background-color: #fff;
+  border: 5px solid black;
+  z-index: 10;
+}
+
+
+.dim-layer .pop-layer {
+  display: block;
+}
+
+a.btn-layerClose {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #3f5a9d;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+}
+
+a.btn-layerClose:hover {
+  border: 1px solid #091940;
+  background-color: #1f326a;
+  color: #fff;
+}</style>
+
+<nav id="sidebar" class="border-top border-light col-sm p-4" style="font-size: 11px;">
+    <div class="list-group">
+        <!--<a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo">공지사항</a>  -->
+
+<!-- 공지 팝업 -->
+<a href="#layer1" class="rounded-0 list-group-item list-group-item-action list-group-item-light btn-example"><i class="fa-solid fa-circle-exclamation"> 공 지</i></a>
+<div id="layer1" class="pop-layer">
+    <div class="pop-container">
+        <div class="pop-conts">
+            <!--content //-->
+            <p class="ctxt mb20"><b><i class="fa-solid fa-circle-exclamation">공지사항</i></b><br>
+                Excel upload는 Mysql for Excel 설치 후  <br>
+                엑셀의 데이터탭에서 mysql for Excel을 수행합니다.<br>
+                hostname : taeel.iptime.org    port 3306<br>
+				username: taeel  password: *******<br>
+            </p>
+
+            <div class="btn-r">
+                <a href="#" class="btn-layerClose">Close</a>
+            </div>
+            <!--// content-->
+        </div>
+    </div>
+</div>
+<!-- 팝업 끝 -->
+
+
+
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/"><i class="fa-solid fa-clipboard-list"> 게시판</i></a>
+        <!--
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/tip/">팁과강좌</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/quiz/">파이썬퀴즈</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/news/">새로운소식</a>
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/job/">구인구직</a>
+        -->
+        <a class="rounded-0 list-group-item list-group-item-action list-group-item-light " href="/pybo/question/list/bug/"><i class="fa-brands fa-apple"> Test 중</i></a>
+    </div>
+</nav>
+

@@ -1,0 +1,40 @@
+<!-- 네비게이션바 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark  border-bottom" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="{% url 'jumun:index' %}"> Girin-주문장</a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+        <ul class="navbar-nav">
+               <li class="nav-item ">
+			{% if user.is_authenticated %}
+			 <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+			{% else %}
+             <a class="nav-link" href="{% url 'common:login' %}">로그인</a>
+			{% endif %}
+            </li>
+        </ul>
+    </div>
+
+	<div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/pybo"><i class="fa-solid fa-clipboard-list"></i> 게시판</a>
+                </li>
+				
+                <li class="nav-item ">
+                    <a class="nav-link" href="/jumun/order"><i class="fa-solid fa-box-archive"></i> Order</a>
+                </li> 
+                
+                <li class="nav-item ">
+                    <a class="nav-link" href="/common/login/"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/common/signup/"><i class="fas fa-user-plus"></i> 회원가입</a>
+                </li>
+                
+            </ul>
+        </div>
+
+</nav>

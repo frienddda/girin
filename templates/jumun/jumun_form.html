@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">주문등록</h5>
+    <form method="post" class="post-form my-3">
+        {% csrf_token %}
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="form-group container my-3">
+		<table class="table text-center"  style="font-size: 12px" >
+        <thead>
+		<tr class="thead-dark" >
+            
+			<th>주문id</th>
+			<th>주문자명</th>
+			<th>소비자명</th>
+			<th>브랜드</th>
+			<th>상품명</th>
+			<th >옵션</th>
+			<th>수량</th>
+			<th>도매가</th>
+			<th>메모</th>
+			<th>상태</th>
+			<th>노출여부</th>
+			<!--<th>주문일</th><-->
+            
+        </tr>
+        </thead>
+		<tbody>
+		<tr>
+				<td><input type="text" class="form-control" name="jumun_id" id="jumun_id"
+                   value="{{ form.jumun_id.value|default_if_none:'' }}"> </td>
+				
+				<td><input type="text" class="form-control" name="jumun_name" id="jumun_name"
+                   value="{{ form.jumun_name.value|default_if_none:'' }}"> </td>
+				
+				<td><input type="text" class="form-control" name="consumer" id="consumer"
+                   value="{{ form.consumer.value|default_if_none:'' }}"> </td>
+
+				<td><input type="text" class="form-control" name="brand" id="brand"
+                   value="{{ form.brand.value|default_if_none:'' }}"> </td>
+
+				<td><input type="text" class="form-control" name="prd_name" id="prd_name"
+                   value="{{ form.prd_name.value|default_if_none:'' }}"> </td>
+				
+				<td><input type="text" class="form-control" name="option" id="option"
+                   value="{{ form.option.value|default_if_none:'' }}"> </td>
+				
+				<td><input type="text" class="form-control" name="quantity" id="quantity"
+                   value="{{ form.quantity.value|default_if_none:'' }}"> </td>
+
+				<td><input type="text" class="form-control" name="d_price" id="d_price"
+                   value="{{ form.d_price.value|default_if_none:'' }}"> </td>
+
+				<td><input type="text" class="form-control" name="memo" id="memo"
+                   value="{{ form.memo.value|default_if_none:'' }}"> </td>
+
+				<td><input type="text" class="form-control" name="status" id="status"
+                   value="{{ form.status.value|default_if_none:'' }}"> </td>
+
+				<td><input type="text" class="form-control" name="exposure" id="exposure"
+                   value="{{ form.exposure.value|default_if_none:'' }}"> </td>
+
+          </tr>
+		  </tbody>
+		  </table>
+		  
+        </div>
+		<button type="submit" class="btn btn-primary float-right">저장하기</button>
+        
+    </form>
+	
+</div>
+
+
+{% endblock %}

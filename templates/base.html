@@ -1,0 +1,61 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no user-scalable=yes">
+	
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<!-- simplemde -->
+	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplemde@latest/dist/simplemde.min.css">-->
+	<link rel="stylesheet"  type="text/css"  href="{% static 'simplemde.min.css' %}"> 
+	
+	<!-- datatable -->
+	<!--<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> -->
+     <title>주문장</title>
+</head>
+<body>
+{% include "navbar.html" %}
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- jQuery JS -->
+<script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+	<!-- font awesome -->
+<script src="https://kit.fontawesome.com/3a3bffa3e3.js" crossorigin="anonymous"></script>
+<!--simplemde -->
+<script  src="{% static 'simplemde.min.js' %}"></script> 
+<!--<script src="https://cdn.jsdelivr.net/npm/simplemde@latest/dist/simplemde.min.js"></script>-->
+
+
+<!--<script src="{% static 'jquery.blockUI.js' %}"></script> -->
+
+ <!--<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script> -->
+
+<!-- 자바스크립트 Start -->
+{% block script %}
+{% endblock %}
+<!-- 자바스크립트 End -->
+<!-- footer 설정 -->
+<div class="container mt-3 ">
+    <footer class="footer">
+    
+	<div class ="col-sm-12 col-md-9 col-lg-12 d-flex justify-content-between ">
+        <div class="text-muted" >Copyright ⓒ2022  Taeel. All rights reserved</div>
+        <div class=" text-muted"><i class="fa-solid fa-envelope"></i>Mail : frienddda@gmail.com</div>
+    </div>
+	
+</footer>
+</div>
+
+<!-- footer 끝 -->
+</body>
+</html>

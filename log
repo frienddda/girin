@@ -1,0 +1,29 @@
+[1mdiff --git a/templates/base.html b/templates/base.html[m
+[1mindex c129f8a..2fa0576 100644[m
+[1m--- a/templates/base.html[m
+[1m+++ b/templates/base.html[m
+[36m@@ -9,7 +9,7 @@[m
+     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">[m
+     <!-- pybo CSS -->[m
+     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">[m
+[31m-    <title>Hello, pybo!</title>[m
+[32m+[m[32m    <title>파이보</title>[m
+ </head>[m
+ <body>[m
+ {% include "navbar.html" %}[m
+[1mdiff --git a/templates/base.html.bak b/templates/base.html.bak[m
+[1mindex 559bc2d..c129f8a 100644[m
+[1m--- a/templates/base.html.bak[m
+[1m+++ b/templates/base.html.bak[m
+[36m@@ -21,5 +21,10 @@[m
+ <script src="{% static 'jquery-3.6.0.min.js' %}"></script>[m
+ <!-- Bootstrap JS -->[m
+ <script src="{% static 'bootstrap.min.js' %}"></script>[m
+[32m+[m
+[32m+[m[32m<!-- 자바스크립트 Start -->[m
+[32m+[m[32m{% block script %}[m
+[32m+[m[32m{% endblock %}[m
+[32m+[m[32m<!-- 자바스크립트 End -->[m
+ </body>[m
+ </html>[m
+\ No newline at end of file[m

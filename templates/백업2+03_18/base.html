@@ -1,0 +1,52 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no user-scalable=yes">
+	
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<!-- datatable -->
+	<!--<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> -->
+    <title>파이보</title>
+
+</head>
+<body>
+{% include "navbar.html" %}
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- jQuery JS -->
+<script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+
+<!-- fond awesome -->
+<script src="https://kit.fontawesome.com/3a3bffa3e3.js" crossorigin="anonymous"></script>
+
+<!--<script src="{% static 'jquery.blockUI.js' %}"></script> -->
+
+ <!--<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script> -->
+
+<!-- 자바스크립트 Start -->
+{% block script %}
+{% endblock %}
+<!-- 자바스크립트 End -->
+
+<!-- footer 설정 -->
+    <footer class="footer">
+    <div class="container mt-3 ">
+	<div class ="col-sm-12 col-md-9 col-lg-12 ">
+        <span class="text-muted" >Copyright <i class="fa-solid fa-copyright"></i>2022  Taeel. All rights reserved</span>
+        <div class="float-right text-muted"><i class="fa-solid fa-envelope"></i>Mail : frienddda@gmail.com</div>
+    </div>
+	</div>
+</footer>
+<!-- footer 끝 -->
+</body>
+</html>

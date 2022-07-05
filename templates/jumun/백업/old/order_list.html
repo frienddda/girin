@@ -1,0 +1,456 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+<!--<div class="table-responsive container-fluid  my-3 "> -->
+<div class="container-fluid my-3 ">
+
+<!--다중 검색창-->
+
+<button class="float-right btn btn-primary  " id="t_button"> 다중검색</button>
+
+
+
+
+<!-- 전체삭제 메세지 -->
+{% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dark w-25  alert-dismissible alert-auto-dismissible notification-container text-center" role="alert"> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+<div class=" float-left" id="divToggle" style="display:none;" >
+        <div class="input-group">
+		<table class="float-right">
+		    <tr><td> <input type="text" class="form-control mkw1" value="{{ mkw1|default_if_none:'' }}" placeholder="주문자1"></td>
+			 <td><input type="text" class="form-control mkw2" value="{{ mkw2|default_if_none:'' }}" placeholder="주문자2"></td>
+			 <td><input type="text" class="form-control mkw3" value="{{ mkw3|default_if_none:'' }}" placeholder="주문자3"></td>
+			 <td><input type="text" class="form-control mkw4" value="{{ mkw4|default_if_none:'' }}" placeholder="주문자4"></td>
+			 <td><input type="text" class="form-control mkw5" value="{{ mkw5|default_if_none:'' }}" placeholder="주문자5"></td></tr>
+
+			 <tr><td> <input type="text" class="form-control mkc1" value="{{ mkc1|default_if_none:'' }}" placeholder="위탁자1"></td>
+			 <td><input type="text" class="form-control mkc2" value="{{ mkc2|default_if_none:'' }}" placeholder="위탁자2"></td>
+			 <td><input type="text" class="form-control mkc3" value="{{ mkc3|default_if_none:'' }}" placeholder="위탁자3"></td>
+			  <td><input type="text" class="form-control mkc4" value="{{ mkc4|default_if_none:'' }}" placeholder="위탁자4"></td>
+			   <td><input type="text" class="form-control mkc5" value="{{ mkc5|default_if_none:'' }}" placeholder="위탁자5"></td></tr>
+			</table>
+			   <div class="input-group-append" > 
+                <button class="btn btn-primary disabled " type="button" id="btn_m_search">검색</button>
+				<button class="btn btn-primary disabled mx-1" type="button" id="reset2"><a class="text-white " href="{% url 'jumun:order' %}" >리셋</a></button>
+				
+				
+            </div>
+		</div>
+	<div class="row justify-content-end mx-3 text-info"  >총{{all_c}}건  {{kw_c}}건 검색 </div>	
+  </div>
+
+  <!--다중 검색창 end-->
+
+<!-- 기본 검색창 -->
+<div class="row justify-content-end">
+        <div class="col-2 input-group" id="basic">
+		     <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}" >
+			   <div class="input-group-append"> 
+                <button class="btn btn-primary disabled" type="button" id="btn_search">검색</button>
+				<button class="btn btn-primary disabled mx-1" type="button" id="reset1"><a class="text-white" href="{% url 'jumun:order' %}"> 리셋</a></button>
+				
+				</div>
+			<div  class=" input-group text-info" >총{{all_c}}건  {{kw_c}}건 검색 </div>
+		</div>
+	  </div>
+	
+	
+	<!-- 기본 검색창 end -->
+
+
+    <table  class="table text-center table-bordered  table-hover table-condensed table-sm"  style="font-size: 12px ; width:100%; overflow:auto; white-space:nowrap;" >
+
+        <thead >
+        <tr class="thead-light " >
+			<th ><input id="checkall" type="checkbox"  name='selected[]' value='selectall' onclick='selectAll(this)'/></th>
+			<th></th>
+			<th>영문</th>
+            <th>주문날짜</th>
+			<th>주문id</th>
+			<th>주문자</th>
+			<th>위탁자</th>
+			<th>브랜드</th>
+			<th>상품명</th>
+			<th >색상</th>
+			<th>수량</th>
+			<th>중도매</th>
+			<th>도매가</th>
+			<th>비고</th>
+			<th>공급가</th>
+			<th>이름</th>
+			<th>전화번호</th>
+			<th>주소</th>
+			<th>ID</th>
+			<th>나온날짜</th>
+            
+        </tr>
+        </thead>
+        <tbody>
+<!-- 페이징 안된 전체 조회 처리 -->
+<form id="downform" method="post" action="{% url 'jumun:order_excel2' %}">
+{% for order in order_list2 %}
+<input type="hidden" id="orderlist" name="orderlist[]" value="{{order.order_t_id}}">
+{% endfor %}
+{% csrf_token %}
+</form>
+<!-- 페이징 안된 전체 조회 처리 끝 -->
+
+{% if order_list %}
+   
+    {% for order in order_list %}
+	<tr > <form action="{% url 'jumun:order_excel' %}"  method="POST">
+			<td><input id="selected" type="checkbox" name="selected[]" value="{{order.order_t_id}}"> </td>
+
+			<td>{{ forloop.counter}} </td>
+			
+			<td>
+					{{ order.영문}}
+			</td>
+			<td>
+					{{ order.주문날짜}}
+			</td>
+			<td>
+					{{ order.주문자id}}
+			</td>
+			<td>
+					{{ order.주문자}}
+			</td>
+			<td>
+					{{ order.위탁자}}
+			</td>
+			<td>
+                  {{ order.브랜드}}
+		   </td>
+		   <td style="font-size: 11px">
+                   {{ order.상품명}}
+		   </td>
+		   <td >
+                   {{ order.색상}}
+		   </td>
+		   <td>
+                   {{ order.수량}}
+		   </td>
+		   <td>
+                   {{ order.중도매}}
+		   </td>
+		   <td>
+                   {{ order.도매가}}
+		   </td>
+		   <td style="font-size: 11px">{{order.비고}}</td>
+		   <td>
+                   {{ order.공급가}}
+		   </td>
+		   <td>
+                   {{ order.이름}}
+		   </td>
+		   <td>
+                   {{ order.전화번호}}
+		   </td>
+		   <td style="font-size: 10px">
+                   {{ order.주소}}
+		   </td>
+		   <td>
+                   {{ order.아이디}}
+		   </td>
+		   <td>
+                   {{ order.나온날짜}}
+		   </td>
+   </tr>
+
+    {% endfor %}
+    
+{% else %}
+<tr>
+    <td colspan="3">"주문이 없습니다"</td>
+</tr>
+{% endif %}
+</tbody>
+</table>
+
+
+
+<!-- 페이징처리 시작 -->
+
+<ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if order_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ order_list.previous_page_number}}" href="#">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in order_list.paginator.page_range %}
+		<!-- 페이지리스트 갯수 설정-->
+		{% if page_number >= order_list.number|add:-5 and page_number <= order_list.number|add:5 %}
+            {% if page_number == order_list.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" data-page="{{ page_number}}" href="#">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" data-page="{{ page_number}}" href="#">{{ page_number }}</a>
+            </li>
+            {% endif %}
+		{%endif%}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if order_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ order_list.next_page_number}}" href="#">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link " tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+		
+    </ul>
+    <!-- 페이징처리 끝 -->
+	<div class="float-left mt-n5">
+	<button class="btn btn-primary" type="button" id="btn_down">All_DownLoad</button>
+    <button class="btn btn-danger mx-1" type="button" id="delete_all" onclick="button_event();">전체삭제</button>
+	</div>
+	<div class="float-right mt-n5">
+	<button type="submit" class="btn btn-primary "> DownLoad</button>
+	<button type="submit" class="btn btn-primary " onclick='return submit2(this.form);'>Delete</button>
+	<!--<button class="btn btn-primary" type="button" id="menu-excel">upload</button> -->
+	
+	
+	<span class="row justify-content-end mx-3 text-info" >총{{all_c}}건  {{kw_c}}건 검색 </span>	
+	</div>
+
+
+<!--<a href="{% url 'jumun:jumun_create' %}" class="btn btn-primary float-right ">주문 등록하기</a> -->
+{% csrf_token %}
+</form>
+
+</div>
+
+
+
+<!--전체삭제폼-->
+<form id="deleteForm" name="deleteall" action="{% url 'jumun:order_alldelete' %}">
+    {% csrf_token %}
+</form>	
+
+<!--검색폼-->
+<form id="searchForm" method="get" action="{% url 'jumun:order' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+	<input type="hidden" id="mkw1" name="mkw1" value="{{ mkw1|default_if_none:'' }}">
+	<input type="hidden" id="mkw2" name="mkw2" value="{{ mkw2|default_if_none:'' }}">
+	<input type="hidden" id="mkw3" name="mkw3" value="{{ mkw3|default_if_none:'' }}">
+	<input type="hidden" id="mkw4" name="mkw4" value="{{ mkw4|default_if_none:'' }}">
+	<input type="hidden" id="mkw5" name="mkw5" value="{{ mkw5|default_if_none:'' }}">
+	<input type="hidden" id="mkc1" name="mkc1" value="{{mkc1|default_if_none:'' }}">
+	<input type="hidden" id="mkc2" name="mkc2" value="{{ mkc2|default_if_none:'' }}">
+	<input type="hidden" id="mkc3" name="mkc3" value="{{ mkc3|default_if_none:'' }}">
+	<input type="hidden" id="mkc4" name="mkc4" value="{{ mkc4|default_if_none:'' }}">
+	<input type="hidden" id="mkc5" name="mkc5" value="{{ mkc5|default_if_none:'' }}">
+	<input type="hidden" id="page" name="page" value="{{ page }}">
+	
+</form>
+
+
+<!--엑셀업로드-->
+<!-- modal content  modal-dialog-centered-->
+<div id="modal-excel" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog  modal-mg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i class="far fa-save mr-1"></i>
+                    Excel_Upload
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form" id="frm_excel" method='post' enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="row justify-content-center toolbar-forms py-1">
+
+							  <input type="file" id="file_excel" name="file_excel"  >
+							                          							
+                                
+          
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <div class="float-left mx-auto">
+                    <button class="btn btn-primary" type="button" onclick="excel_upload();">저장</button>
+                    <button type="button" class="btn btn-default border" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal end -->
+
+
+{% endblock %}
+
+
+
+
+
+
+
+<-- 검색스크립트 -->
+{% block script %}
+<script src="{% static 'jquery.blockUI.js' %}"></script>
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".page-link").on('click', function() {
+        $("#page").val($(this).data("page"));
+        $("#searchForm").submit();
+    });
+//기본검색
+    $("#btn_search").on('click', function() {
+        $("#kw").val($(".kw").val());
+		$("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+    });
+//다중검색
+	$("#btn_m_search").on('click', function() {
+        $("#mkw1").val($(".mkw1").val());
+		$("#mkw2").val($(".mkw2").val());
+		$("#mkw3").val($(".mkw3").val());
+		$("#mkw4").val($(".mkw4").val());
+		$("#mkw5").val($(".mkw5").val());
+		$("#mkc1").val($(".mkc1").val());
+		$("#mkc2").val($(".mkc2").val());
+		$("#mkc3").val($(".mkc3").val());
+		$("#mkc4").val($(".mkc4").val());
+		$("#mkc5").val($(".mkc5").val());
+		$("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+	  });
+});
+
+//로딩바
+$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+//전체삭제 확인
+function button_event(){
+if (confirm("모든 데이터가 삭제됩니다. 정말 삭제하시겠습니까??") == true){    //확인
+
+    $("#deleteForm").submit();
+}else{   //취소
+    return;
+}
+}
+
+
+
+//선택 삭제
+  function submit2(frm) { 
+    frm.action="{% url 'jumun:order_delete' %}"; 
+    frm.submit(); 
+	return true; 
+  } 
+//검색된 전체 다운로드
+   $("#btn_down").on('click', function() {
+        $("#downform").submit();
+    });
+//체크박스 전체선택
+  function selectAll(selectAll)  {
+  const checkboxes 
+     = document.querySelectorAll('input[type="checkbox"]');
+  
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked
+  })
+}
+//다중검색 toggle
+$(function (){
+    $("#t_button").click(function (){
+    $("#divToggle").toggle();
+	
+	  
+	  if($("#divToggle").is(":hidden")){
+		  $("#basic").show(); }
+		else {$("#basic").hide();}
+   }); 
+ });
+
+//upload -modal button
+$("#menu-excel").click(function () {
+        $("#modal-excel").modal('show');
+    });
+
+
+
+//excel_upload
+
+function excel_upload(){
+            if(!$('#file_excel').val()){
+                alert('엑셀 파일을 입력하세요');
+            }else{
+
+                var ext = $('#file_excel').val().split('.').pop().toLowerCase();
+                if($.inArray(ext, ['xls','xlsx']) == -1) {
+	                alert('엑셀 파일만 업로드 할 수 있습니다.');
+                }else{
+                    if (confirm('엑셀을 반영 하시겠습니까?')){
+
+                       var ajax_url = "{% url 'jumun:excel_upload' %}";
+
+                       // Get form
+                       var form = $('#frm_excel')[0];
+
+                       // Create an FormData object
+                       var formData = new FormData(form);
+
+                       var params = "";
+                       var msg = "";
+                       $.ajax({
+                           type: "post",
+                           enctype: 'multipart/form-data',
+                           processData: false,
+                           contentType: false,
+						   url: ajax_url,
+                           //data:params,
+                           data: formData,
+                           dataType: "JSON", // JSON 리턴
+                           headers:{"X-CSRFTOKEN": '{{csrftoken}}'},
+                           beforeSend: function () {
+                           },
+                           success: function (data) {
+                               // success
+                               alert(data.rtnmsg);
+                               if (data.status) {
+                                   location.reload();
+                               }
+                           },
+                           complete: function (data) {
+                               // 통신이 실패했어도 완료가 되었을 때
+                           },
+                           error: function(xhr,status,error){
+
+										alert("통신 에러");
+									
+                           },
+                           timeout: 500000 //응답제한시간 ms
+                       });
+
+                    }
+                }
+            }
+        }
+
+</script>
+{% endblock %}
